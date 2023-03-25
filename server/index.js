@@ -8,9 +8,16 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
-import authRoutes from './routes/auth.js'
-import userRoutes from './routes/users.js'
-import {register}  from "./controllers/auth.js";
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import postsRoutes from "./routes/posts.js";
+import { register } from "./controllers/auth.js";
+import {createPost} from "./controllers/posts.js"
+import { verifyToken } from "./middleware/authMiddleware.js";
+
+import Post from "./models/Post.js";
+import User from "./models/User.js";
+import {users, posts} from './data/data.js'
 
 // CONFIGURATION
 const __filename = fileURLToPath(import.meta.url);
@@ -40,13 +47,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// ROUTES WITH FILES
+// ROUTES WITH FILES Upload
 app.post("auth/register", upload.single("picture"), register);
- 
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 // ROUTES
-app.use('/auth' , authRoutes)
-app.use('/users' , userRoutes);
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+app.use("/posts", postsRoutes);
 
 // MONGOOSE SETUP
 const port = process.env.PORT || 6001;
@@ -57,6 +65,10 @@ mongoose
   })
   .then(() => {
     app.listen(port, () => console.log(`Server running at port : ${port}`));
+    
+    //ADD DATA ONE TIME
+    // User.insertMany(users)
+    // Post.insertMany(posts)
+
   })
   .catch((error) => console.log("DID NOT CONNECT"));
-                                                                                                                                        
