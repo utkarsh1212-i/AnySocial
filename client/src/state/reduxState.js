@@ -16,16 +16,18 @@ export const authSlice = createSlice({
       state.mode = state.mode === "light" ? "dark" : "light";
     },
     setLogin: (state, action) => {
-      (state.user = action.payload.user), (state.token = action.payload.token);
+      state.user = action.payload.user,
+      state.token = action.payload.token;
     },
     setLogout: (state) => {
-      (state.user = null), (state.token = null);
+      state.user = null,
+      state.token = null;
     },
     setFriends: (state, action) => {
       if (state.user) {
-        state.user.friend = action.payload.friends;
+        state.user.friends = action.payload.friends;
       } else {
-        console.log("User Friends Does Not exist");
+        console.error("User's Friends Does Not exist");
       }
     },
     setPosts: (state, action) => {
