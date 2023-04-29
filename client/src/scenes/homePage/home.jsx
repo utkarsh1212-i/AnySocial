@@ -6,7 +6,7 @@ import Navbar from 'scenes/navbar/navbar'
 export default function HomePage() {
   return (
     <Box>
-      <Navbar />
+      {/* <Navbar /> */}
       <LoginPage />
     </Box>
   )

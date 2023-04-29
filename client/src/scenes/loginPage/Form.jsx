@@ -160,7 +160,7 @@ const Form = () => {
                   name="location"
                   error={Boolean(touched.location) && Boolean(errors.location)}
                   helperText={touched.location && errors.location}
-                  sx={{ gridColumn: "span 2" }}
+                  sx={{ gridColumn: "span 4" }}
                 />
                 <TextField
                   label="occupation"
@@ -191,7 +191,7 @@ const Form = () => {
                         border={`2px dashed ${palette.primary.main}`}
                         p="1rem"
                         sx={{ "&:hover": { cursor: "pointer" } }}>
-                        <input {...getInputProps} />
+                        <input {...getInputProps()} />
                         {!values.picture ? (
                           <p>Add Picture Here</p>
                         ) : (
@@ -236,7 +236,7 @@ const Form = () => {
               sx={{
                 m: "2rem 0",
                 p: "1rem",
-                backGroundColor: palette.primary.main,
+                backgroundColor: palette.primary.main,
                 color: palette.background.alt,
                 "&:hover": { color: palette.primary.main },
               }}>
